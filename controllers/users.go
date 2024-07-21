@@ -15,7 +15,6 @@ func GetUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, users)
 }
-
 func GetOneUsers(c *gin.Context) {
 	username := c.Param("username")
 	users, err := models.GetOneUsers(username)
@@ -26,7 +25,6 @@ func GetOneUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, users)
 }
-
 func PostUser(c *gin.Context) {
 	var newUser models.Users
 	if err := c.Bind(&newUser); err != nil {

@@ -11,16 +11,6 @@ type Users struct {
 	Name     string `json:"name" form:"name"`
 }
 
-// Mock data for tasks
-var UsersData = []Users{
-	{Username: "dennisferdian", Name: "Dennis Ferdian"},
-	{Username: "deny", Name: "Deny"},
-	{Username: "akmal", Name: "Akmal"},
-	{Username: "firly", Name: "Firly"},
-	{Username: "destia", Name: "Destia"},
-	{Username: "rino", Name: "Rino"},
-}
-
 func GetUsers() ([]Users, error) {
 	query := `SELECT username, name FROM users`
 	rows, err := config.DB.Query(query)
