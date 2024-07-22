@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/dennisferdian9/golang-sqlite/controllers"
+	"github.com/dennisferdian9/golang-sqlite/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,7 @@ func SetupRouter() *gin.Engine {
 	api := r.Group("/api")
 	{
 		user := api.Group("/user")
+		user.Use(middleware.UserMiddleware)
 		user.GET("", controllers.GetUsers)
 		user.GET(":username", controllers.GetOneUsers)
 

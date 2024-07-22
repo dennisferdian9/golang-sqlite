@@ -15,6 +15,7 @@ func GetUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, users)
 }
+
 func GetOneUsers(c *gin.Context) {
 	username := c.Param("username")
 	users, err := models.GetOneUsers(username)
@@ -25,13 +26,14 @@ func GetOneUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, users)
 }
+
 func PostUser(c *gin.Context) {
 	var newUser models.Users
 	if err := c.Bind(&newUser); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input", "errorMessage": err})
 		return
 	}
-	if _, err := models.PostUser(newUser.Username, newUser.Name); err != nil {
+	if _, err := models.PostUser(newUser.Username, newUser.Name, newUser.Password); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to add user", "errorLog": err})
 		return
 	}
@@ -39,7 +41,4 @@ func PostUser(c *gin.Context) {
 		"message": "Post Success",
 		"data":    newUser,
 	})
-
-	// message, err := models.PostUser()
-
 }

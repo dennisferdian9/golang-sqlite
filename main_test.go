@@ -135,7 +135,6 @@ func TestGetUsers(t *testing.T) {
 	err = mock.ExpectationsWereMet()
 	assert.NoError(t, err)
 }
-
 func TestGetOneUser(t *testing.T) {
 	// chec sqlmock
 	db, mock, err := sqlmock.New()

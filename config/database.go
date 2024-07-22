@@ -37,11 +37,31 @@ func createTable() {
 	query := `
 	CREATE TABLE IF NOT EXISTS users (
 		username TEXT PRIMARY KEY,
-		name TEXT
+		name TEXT,
+		password Text
 	);
 	`
+
 	_, err := DB.Exec(query)
 	if err != nil {
+		log.Fatalf("Failed to create table: %v", err)
+	}
+
+	adminUsername := os.Getenv("ADMIN_USERNAME")
+	adminPassword := os.Getenv("ADMIN_PASSWORD")
+
+	if adminUsername == "" {
+		adminUsername = "admin"
+	}
+
+	if adminPassword == "" {
+		adminUsername = "password"
+	}
+
+	queryInsert := `INSERT INTO users (username, name, password) VALUES (?, ?, ?)`
+	println("adminPassword", adminPassword)
+	_, errInsert := DB.Exec(queryInsert, adminUsername, adminUsername, adminPassword)
+	if errInsert != nil {
 		log.Fatalf("Failed to create table: %v", err)
 	}
 }
